@@ -33,11 +33,20 @@ public class Sms {
 		ResponseBuilder builder = null;
 		String key = null;
 		try{
-			key=RandomStringUtils.randomAlphanumeric(10).toUpperCase();
-			GenericEntity<String> entity = new GenericEntity<String>(key) {	};
-			builder = Response.ok(entity);
+			
+			if (account == null || user == null || pass == null || to == null || msg == null || idSms == null){
+				key = "ERROR";
+			} else {
+			
+				key=RandomStringUtils.randomAlphanumeric(10).toUpperCase();
+				GenericEntity<String> entity = new GenericEntity<String>(key) {	};
+				builder = Response.ok(entity);
+			}
+			
 			logger.info(to+"-"+key);
+			
 		}catch(Exception e){
+			logger.info("ERROR");
 			builder = Response.serverError().entity(e);
 		}finally{
 			key = null;
